@@ -1,11 +1,14 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <set>
 
 using namespace std ;
 
 const int inf = 0x7fffffff ;
 const int maxn = 100 ; 
+
+set< string > bst ; 
 
 string origin , target , a[ maxn ] , b[ maxn ] ;
 int cnt = 0 , ans = inf ; 
@@ -20,6 +23,10 @@ string trans( string state , int i , int j ) {
 
 void dfs( string state , int step ) {
 	if ( step >= ans ) return ; 
+	if ( step > 10 ) return ; 
+	if ( bst.find( state ) != bst.end(  ) ) return ; 
+	bst.insert( state ) ; 
+	//cout << state << " " << step << endl ; 
 	if ( state == target ) {
 		ans = min( ans , step ) ;
 		return ; 
@@ -43,7 +50,7 @@ int main(  ) {
 		cin >> b[ cnt ++ ] ;
 	}
 	dfs( origin , 0 ) ;
-	cout << ans << endl ;
+	if ( ans < inf ) cout << ans << endl ; else cout << "NO ANSWER!" << endl ;
 	fclose( stdin ) , fclose( stdout ) ; 
 	return 0 ; 
 }
